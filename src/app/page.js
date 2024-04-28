@@ -4,7 +4,7 @@
 
 import dynamic from 'next/dynamic'
 
-const DDFLyear = dynamic(() => import('../components/dd/flyer'), {loading: () => <p> </p>,})
+// const DDFLyear = dynamic(() => import('../components/dd/flyer'), {loading: () => <p> </p>,})
 
 export default function Home() {
   return (
@@ -26,7 +26,7 @@ export default function Home() {
 
                 </div>
 
-            <DDFLyear/>
+            {/*<DDFLyear/>*/}
 
 
         </div>
