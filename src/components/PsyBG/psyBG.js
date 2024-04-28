@@ -8,9 +8,7 @@ import {
 	aniPresetDefDuration,
 	aniPresetsKeys,
 	aniPresets,
-	randomAniPreset,
-	randomAniRec,
-	aniPresetsCyclers
+	aniPresetsCombine
 } from "@/components/aniPresets";
 
 
@@ -32,21 +30,28 @@ export default function PsyBG({crossfadeDuration = aniPresetDefDuration, vidoz =
 
 	useEffect(() => {
 		void setClip( vidozCycler.next() )
-		console.log(window.arrRandomCycler = arrRandomCycler, window.aniPresetsCyclers = aniPresetsCyclers, window.randomAniRec = randomAniRec, window.randomAniPreset = randomAniPreset, window.aniPresets = aniPresets, window.aniPresetsKeys = aniPresetsKeys)
+		//console.log(window.arrRandomCycler = arrRandomCycler, window.aniPresetsCyclers = aniPresetsCyclers, window.randomAniRec = randomAniRec, window.randomAniPreset = randomAniPreset, window.aniPresets = aniPresets, window.aniPresetsKeys = aniPresetsKeys)
 	}, [])
 
-	const anirec = () => {
-		let x = randomAniRec('psybk', ['fade','zoomIn'])
-		console.log('AAAnirec ', x)
-		return x
-	}
+	const
+		apRCyclerIn =  arrRandomCycler(aniPresetsKeys.filter(k => ['fade', 'slideRight', 'slideLeft'].includes(k)), 1),
+		apRCyclerOut =  arrRandomCycler(aniPresetsKeys.filter(k => ['fade','zoomIn','zoomOut','slideRight', 'slideLeft'].includes(k)), 1),
+
+		getPreset = () => {
+
+			const pin =  apRCyclerIn.next().value, pout = apRCyclerOut.next().value
+
+			console.log(`Preset in: '${pin}', out: '${pout}'`)
+
+			return aniPresetsCombine(aniPresets[pin], aniPresets[pout])
+		}
 
 	return (
 		<AnimatePresence>
 			{clip && <motion.div
 				key={`${clip.index}:${clip.value}`}
 				className={'absolute z-0 left-0 top-0 w-full h-full'}
-				{...anirec()}
+				{...getPreset()}
 			>
 
 				<video
