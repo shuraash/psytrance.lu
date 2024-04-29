@@ -1,69 +1,159 @@
 "use client"
 
-import {useEffect, useState} from "react";
-import {AnimatePresence, motion} from "framer-motion";
-import {VJLoops} from "@/components/PsyBG/vidoz";
-import {arrRandomCycler} from "@/util";
-import {
-	aniPresetDefDuration,
-	aniPresetsKeys,
-	aniPresets,
-	aniPresetsCombine
-} from "@/components/aniPresets";
+import {useEffect, useRef} from "react";
+import {animate} from "framer-motion";
+import {arrRandomCycler, formatTS} from "@/util";
+
+const
+
+	aniPresetDefDuration = 2.345,
+
+	aniPresetDefState = { opacity: 1, scale: 1, rotate: '0deg', x: 0, y: 0, z: 0},
+
+	aniPresets = {
+		fade: { opacity: 0 },
+		ZoomOut: { scale: 0, opacity: 0, transition: {scale: {delay: aniPresetDefDuration * .33}} },
+		zoomIn: { scale: 3, opacity: 0, transition: {scale: {delay: aniPresetDefDuration * .33}} },
+		rotateRight: { rotate: '360deg' },
+		rotateLeft: { rotate: '-360deg' },
+		slideRight: { x: '100%',  transition: {duration: aniPresetDefDuration *.66}},
+		slideLeft: { x: '-100%', transition: {duration: aniPresetDefDuration *.66}},
+	},
+
+	aniPresetsKeys = Object.keys(aniPresets)
 
 
-
-export default function PsyBG({crossfadeDuration = aniPresetDefDuration, vidoz = VJLoops})
+export default function PsyBG({vjLoops, className})
 {
-
 	const
+ 		tabloA = useRef(),
+		tabloB = useRef(),
 
-		vidozCycler = arrRandomCycler(VJLoops.map(l=>`http://milkywaytribe.ddns.net/video/vjloops/small/${l}`), 5),
+		videoA  = useRef(),
+ 		videoB  = useRef(),
 
-		[clip, setClip] = useState(null),
+		APCyclerIn =  arrRandomCycler(aniPresetsKeys.filter(k => ['fade', 'slideRight', 'slideLeft'].includes(k)), 2),
+		APCyclerOut =  arrRandomCycler(aniPresetsKeys.filter(k => ['fade','zoomIn','zoomOut','slideRight', 'slideLeft'].includes(k)), 4),
 
-		playVid = (vid) =>
+		VJLoopsCycler = arrRandomCycler(vjLoops, 7),
+
+		nextClip = () => ({...VJLoopsCycler.next(), preset: {in: APCyclerIn.next().value, out: APCyclerOut.next().value} }),
+
+		setNext = (vid) => {
+			vid._clip = nextClip()
+		    vid._clip.cfTime = vid._clip.preset?.out?.transition?.duration || aniPresetDefDuration
+			vid.src = vid._clip.value;
+		},
+
+		videoEnter = async (vid) => {
+			vid.play()
+			await animate(vid, {...aniPresetDefState, ...aniPresets[vid._clip.preset.in]}, {duration: 0})
+
+			animate(vid, aniPresetDefState,
+				{
+							duration: aniPresetDefDuration,
+							...aniPresets[vid._clip.preset.in].transition
+								? aniPresets[vid._clip.preset.in].transition
+								: {}
+						}
+			)
+		},
+
+
+		videoExit = async (vid) => {
+			if(vid)
+			{
+				await animate(vid, aniPresets[vid._clip.preset.out],
+					{duration: aniPresetDefDuration, ...(aniPresets[vid._clip.preset.out].transition ? aniPresets[vid._clip.preset.out].transition : {}) })
+				vid.pause()
+				setNext(vid)
+			}
+		},
+
+
+		crossFade = (from) =>
 		{
-			vid.play();
-			setTimeout(e => setClip( vidozCycler.next() ), (vid.duration - crossfadeDuration) * 1000)
+			if(!from._clip.crossFading)
+			{
+				// console.log('%cCROSSFADING', "color: green")
+				from._clip.crossFading = true;
+				videoEnter( from === videoB.current ? videoA.current : videoB.current )
+				videoExit(from)
+			}
+		},
+
+		upVideoInfo = (vid, tablo) => tablo.innerHTML = `
+				<div>
+					<div style="margin: 5px 0">
+						<span>${vid._clip.preset.in} / ${vid._clip.preset.out}</span>						
+					</div>				
+					<div style="margin: 5px 0">
+						<span>${vid._clip.value.replace('https://trancescript.ddns.net/video/vjloops/small/', '').replace('.mp4', '')}</span>												
+					</div>
+					<div style="margin: 5px 0; display: flex; column-gap: 16px;">
+						<span>${formatTS(vid.duration - vid.currentTime)}</span>						
+						${formatTS(vid.duration)} CFT:(${formatTS(vid._clip.cfTime)}) | ${formatTS(vid.currentTime)}
+					</div>
+				</div>
+		`,
+
+		upVideoTime = (vid, tablo) => {
+
+			tablo.innerHTML = `
+				<div>
+					<div style="margin: 5px 0">
+						<span>${vid._clip.preset.in} / ${vid._clip.preset.out}</span>						
+					</div>				
+					<div style="margin: 5px 0">
+						<span>${vid._clip.value.replace('https://trancescript.ddns.net/video/vjloops/small/', '').replace('.mp4', '')}</span>												
+					</div>
+					<div style="margin: 5px 0; display: flex; column-gap: 16px;">
+						<span>${formatTS(vid.duration - vid.currentTime)}</span>						
+						${formatTS(vid.duration)} CFT:(${formatTS(vid._clip.cfTime)}) | ${formatTS(vid.currentTime)}
+					</div>
+				</div>
+			`
+
+			if( !vid._clip.crossFading && (vid.duration - vid.currentTime) <= vid._clip.cfTime)
+
+ 				crossFade(vid)
 		}
 
-	useEffect(() => {
-		void setClip( vidozCycler.next() )
-		//console.log(window.arrRandomCycler = arrRandomCycler, window.aniPresetsCyclers = aniPresetsCyclers, window.randomAniRec = randomAniRec, window.randomAniPreset = randomAniPreset, window.aniPresets = aniPresets, window.aniPresetsKeys = aniPresetsKeys)
+	useEffect(() =>
+	{
+ 		videoA.current.addEventListener('canplaythrough', e => videoA.current.play(), {once: true})
+		setNext(videoA.current)
+		setNext(videoB.current)
+
 	}, [])
 
-	const
-		apRCyclerIn =  arrRandomCycler(aniPresetsKeys.filter(k => ['fade', 'slideRight', 'slideLeft'].includes(k)), 1),
-		apRCyclerOut =  arrRandomCycler(aniPresetsKeys.filter(k => ['fade','zoomIn','zoomOut','slideRight', 'slideLeft'].includes(k)), 1),
+	return <div>
 
-		getPreset = () => {
+			{/*<button className={'fixed z-50 w-fit left-5 top-5 border bg-red-800 text-white'} onClick={e =>{   crossFade(videoA.current) }}>CROSSFADE A</button>*/}
+			{/*<button className={'fixed z-50 w-fit left-48 top-5 border bg-red-800 text-white'} onClick={e =>{   crossFade(videoB.current) }}>CROSSFADE B</button>*/}
 
-			const pin =  apRCyclerIn.next().value, pout = apRCyclerOut.next().value
+			<div ref={tabloA} className={`z-10 text-left absolute bottom-2 left-2 text-white drop-shadow-lg font-bold w-fit h-fit text-sm`}/>
+			<div ref={tabloB} className={`z-10 text-right absolute bottom-2 right-2 text-white drop-shadow-lg font-bold w-fit h-fit text-sm`}/>
 
-			console.log(`Preset in: '${pin}', out: '${pout}'`)
 
-			return aniPresetsCombine(aniPresets[pin], aniPresets[pout])
-		}
+			<video
+				ref={videoA}
+				key={`VidA`}
+				className={'absolute w-full h-full inset-0 object-cover mix-blend-screen'}
+				muted={true}
+				onLoadedMetadata={e => upVideoInfo( e.target, tabloA.current )}
+				onTimeUpdate={e => upVideoTime( e.target, tabloA.current )}
+			/>
 
-	return (
-		<AnimatePresence>
-			{clip && <motion.div
-				key={`${clip.index}:${clip.value}`}
-				className={'absolute z-0 left-0 top-0 w-full h-full'}
-				{...getPreset()}
-			>
+			<video
+				ref={videoB}
+				key={`VidB`}
+				className={'absolute w-full h-full inset-0 object-cover mix-blend-screen opacity-0'}
+				muted={true}
+				onLoadedMetadata={e => upVideoInfo( e.target, tabloB.current )}
+				onTimeUpdate={e => upVideoTime( e.target, tabloB.current  )}
+			/>
 
-				<video
-					className={'absolute w-screen h-screen object-cover mix-blend-screen'}
-					src={clip.value}
-					muted={true}
-					onCanPlayThrough={e => playVid(e.target)}
-					//  onLoadedMetadata={e => setDur(e.target.duration)}
-					// onTimeUpdate={e => setCurTS(e.target.currentTime)}
-				/>
+	</div>
 
-			</motion.div>}
-		</AnimatePresence>
-	)
 }

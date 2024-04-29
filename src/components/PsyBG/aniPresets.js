@@ -1,5 +1,3 @@
-import {arrIdxRandomCycler, arrRandomCycler} from "@/util";
-
 const
 
 	aniPresetDefDuration = 2.345,
@@ -18,13 +16,13 @@ const
 
 	aniPresetsKeys = Object.keys(aniPresets),
 
-	aniPresetsCombine = (pin, pout, din = aniPresetDefDuration, dout = aniPresetDefDuration, pdef = {...aniPresetDefState}) => ({
+	aniPresetsCombine = (pin, pout, pdef = {...aniPresetDefState}) => ({
 
-		animate: {...aniPresetDefState, transition: {duration: din, easings:  'easeIn', ...(pin.transition ? pin.transition : {})}},
+		in: {...pdef, transition: {duration: aniPresetDefDuration, easings:  'easeIn', ...(pin.transition ? pin.transition : {})}},
 
-		initial: {...aniPresetDefState, ...pin},
+		initial: {...pdef, ...pin, transition: {duration: 0}},
 
-		exit: {...aniPresetDefState, ...pout, transition: {duration: dout, easings:  'easeOut',...(pout.transition ? pout.transition : {})}},
+		out: {...pdef, ...pout, transition: {duration: aniPresetDefDuration, easings:  'easeOut',...(pout.transition ? pout.transition : {})}},
 	})
 
 export  {aniPresetsCombine, aniPresets, aniPresetDefDuration, aniPresetsKeys, aniPresetDefState}

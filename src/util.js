@@ -50,7 +50,7 @@ export const formatTS = (t) => {
 		h = Math.floor(t / 3600),
 		m = Math.floor((t - h * 3600) / 60),
 		s = Math.floor(t - (h * 3600 + m * 60))
-	return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
+	return `${h ? h.toString().padStart(2, '0') + ':' : ''}${m ? m.toString().padStart(2, '0') : '00'}:${s.toString().padStart(2, '0')}`
 }
 
 // formatTSD = (s) =>
