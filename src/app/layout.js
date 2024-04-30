@@ -4,7 +4,7 @@ import PsyBG from "@/components/PsyBG/psyBG";
 import PsyLogo from "@/components/psylogo";
 import {IconAudio, IconVideo} from "@/components/psy.icons";
 import Link from "next/link";
-import {VJLoops} from "@/components/PsyBG/vjLoops";
+import VJLoops from "@/components/PsyBG/vjLoops.json";
 
 
 export const metadata = {
@@ -16,9 +16,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={'overflow-x-hidden w-screen'}>
       <body className={'relative w-screen min-h-screen overflow-x-hidden'}>
-        {/*<CtxToucher>*/}
 
-           <PsyBG vjLoops={VJLoops.map(c => `https://trancescript.ddns.net/video/vjloops/small/${c}`)} className={'opacity-80'}/>
+
+           <PsyBG
+               vjLoops={VJLoops.map(c => `https://trancescript.ddns.net/video/vjloops/small/${c}`)}
+               className={'opacity-75'}
+           />
+
+
 
             <main className="min-h-screen h-screen max-h-screen max-w-screen w-screen overflow-hidden grid grid-cols-[100%] grid-rows-[90px_calc(100vh_-_208px)_108px]">
 
@@ -65,8 +70,6 @@ export default function RootLayout({ children }) {
 
             </main>
 
-
-        {/*</CtxToucher>*/}
       </body>
     </html>
   )

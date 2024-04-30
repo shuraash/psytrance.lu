@@ -1,6 +1,4 @@
-/* list of psychedlic VJ loops */
-
-export const VJLoops = [
+ [
 	"1_freeloop_hd.mp4",
 	"2_freeloop_hd.mp4",
 	"3_freeloop_sd.mp4",
