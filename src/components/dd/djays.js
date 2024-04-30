@@ -1,9 +1,7 @@
 "use client"
 
-import {ddColor} from "@/components/dd/dd.chars";
 import {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import {randoArrGen, randomIndex} from "@/util";
 
 
 const

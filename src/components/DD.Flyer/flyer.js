@@ -1,4 +1,8 @@
+"use client"
+
 import Link from "next/link";
+import {motion} from "framer-motion";
+import DDDisk from "@/components/DD.Flyer/disk";
 
 
 export default function DDFLyear({className})
@@ -9,22 +13,17 @@ export default function DDFLyear({className})
 
 
 			<Link href={'/duckedelic'}
-			      className={'torigin-lt w-rotatoid abs-center block relative w-full max-w-full overflow-hidden sm:max-w-screen-sm  p-4 h-auto aspect-square mx-auto '}
+			      className={'torigin-lt  abs-center block relative w-full max-w-full overflow-hidden sm:max-w-screen-sm  p-4 h-auto aspect-square mx-auto '}
 			>
-				<div className={'rounded-full border border-neutral-500 w-full h-full'} style={{
-					backgroundImage: 'url(/vin1.png)',
-					backgroundSize: 'cover',
-					backgroundPosition: 'center center',
-					backgroundBlendMode: 'overlay'
-				}}/>
+
+				<DDDisk>
+
+					<div className={'p-6 bg-red-900 text-white'}>HUY</div>
 
 
-				<img className="p-2  duke-v psychedelic object-contain w-full h-full abs-center" src="/2psy.png"></img>
-				<img className="p-2  duke-v techno  object-contain  w-full  h-full  abs-center" src="/2tek.png"></img>
-				<img className="p-2  duke-v trance  object-contain  w-full  h-full  abs-center" src="/2tra.png"></img>
+				</DDDisk>
 
 			</Link>
-
 
 		</div>
 	)
