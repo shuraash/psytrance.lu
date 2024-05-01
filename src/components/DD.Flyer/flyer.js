@@ -1,15 +1,20 @@
 "use client"
 
 import Link from "next/link";
-import {motion} from "framer-motion";
-import DDDisk from "@/components/DD.Flyer/disk";
 
+import DDDisk from "@/components/DD.Flyer/disk";
+import PsyText from "@/components/psyText";
+import {motion} from "framer-motion";
 
 export default function DDFLyear({className})
 {
 
 	return (
-		<div className={'abs-center relative w-full max-w-full sm:max-w-screen-sm  h-auto aspect-square mx-auto '}>
+		<motion.div
+			className={'abs-center relative w-full max-w-full sm:max-w-screen-sm  h-auto aspect-square mx-auto opacity-0'}
+			initial={{x: '-50%', y: '-50%', opacity: 0, scale: 1}}
+			animate={{opacity: 1, scale: 1, transition: {duration: 1.666}}}
+		>
 
 
 			<Link href={'/duckedelic'}
@@ -18,13 +23,11 @@ export default function DDFLyear({className})
 
 				<DDDisk>
 
-					<div className={'p-6 bg-red-900 text-white'}>HUY</div>
-
 
 				</DDDisk>
 
 			</Link>
 
-		</div>
+		</motion.div>
 	)
 }

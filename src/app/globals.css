@@ -258,28 +258,9 @@ main{
 
 
 
-.psy-bk-tm{
-  /*background-image: url("/bk-tm-01.gif") ;*/
-  /*background-image: url("/GzOT.gif") ;*/
-  /*background-image: url("/bk-tm-01-hlf.gif") ;*/
-  background-image: url("/bk-tm-01-hlf.gif") ;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  cursor: pointer;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
+.e-huevator{
+  animation: e-huevator .5s ease-in-out infinite
 }
-
-/*.e-rotatoid-e-huevtor {*/
-/*  animation: e-rotatoid 21s linear infinite, e-huevator 6.66s ease-in-out infinite ;*/
-/*}*/
-
-/*.w-rotatoid-e-huevtor {*/
-/*  animation: w-rotatoid 19s linear infinite, e-huevator 7.77s ease-in-out infinite ;*/
-/*}*/
 
 
 @keyframes re-pulsator {
@@ -440,4 +421,41 @@ main{
 .duke-v.fade-in{
   transition: opacity 1.2s ease-in;
   opacity: 0.75;
+}
+
+@keyframes typerInOut{
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes typerIn{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes typerOut{
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.psy-char{
+  opacity: 0;
+  animation: 1s typerIn ;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }

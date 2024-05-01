@@ -3,9 +3,8 @@
 // import DDFLyear from "@/components/dd/flyer";
 
 import dynamic from 'next/dynamic'
-import DDFLyear from "@/components/DD.Flyer/flyer";
 
-// const DDFLyear = dynamic(() => import('../components/dd/flyer'), {loading: () => <p> </p>,})
+const DDFLyear = dynamic(() => import('../components/DD.Flyer/flyer'), {loading: () => <p> </p>,})
 
 export default function Home() {
   return (

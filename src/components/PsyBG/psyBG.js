@@ -26,6 +26,7 @@ const
 export default function PsyBG({vjLoops, className})
 {
 	const
+		myRef  = useRef(),
 		videoA  = useRef(),
  		videoB  = useRef(),
 
@@ -91,14 +92,16 @@ export default function PsyBG({vjLoops, className})
 		setNext(videoA.current)
 		setNext(videoB.current)
 
+	    animate(myRef.current, {opacity: 0.75}, {duration: 3.33})
+
 	}, [])
 
-	return <div className={className}>
+	return <div className={'opacity-0 ' + className} ref={myRef}>
 
 			<video
 				ref={videoA}
 				key={`VidA`}
-				className={'absolute w-full h-full inset-0 object-cover mix-blend-screen'}
+				className={' absolute w-full h-full inset-0 object-cover mix-blend-screen'}
 				muted={true}
 				onTimeUpdate={e => upVideoTime( e.target )}
 			/>
@@ -106,7 +109,7 @@ export default function PsyBG({vjLoops, className})
 			<video
 				ref={videoB}
 				key={`VidB`}
-				className={'absolute w-full h-full inset-0 object-cover mix-blend-screen opacity-0'}
+				className={'  absolute w-full h-full inset-0 object-cover mix-blend-screen opacity-0'}
 				muted={true}
 				onTimeUpdate={e => upVideoTime( e.target )}
 			/>

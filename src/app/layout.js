@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
 
            <PsyBG
                vjLoops={VJLoops.map(c => `https://trancescript.ddns.net/video/vjloops/small/${c}`)}
-               className={'opacity-75'}
+               className={' '}
            />
 
 
