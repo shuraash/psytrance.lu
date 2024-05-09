@@ -1,2 +1,2 @@
 # psytrance.lu
-code of PSYTRANCE.LU Non-profit cultural society
+code for PSYTRANCE.LU - Non-profit cultural society
