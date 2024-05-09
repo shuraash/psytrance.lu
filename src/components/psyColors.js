@@ -1,4 +1,4 @@
-import { sort, sortFn } from "color-sorter";
+// import { sort, sortFn } from "color-sorter";
 
 const
 
@@ -76,7 +76,10 @@ const
 },
 
 //	psyColors = Object.keys(palettes).flatMap(k => palettes[k]).sort(sortFn)
-	psyColors = palettes.dddd.sort(sortFn)
+
+	psyColors = palettes.dddd
+
+//.sort(sortFn)
 
 
 export {psyColors, psyShadows}
