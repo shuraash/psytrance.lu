@@ -141,7 +141,7 @@ export default function PsyBG({vjLoops, className})
 			<video
 				ref={videoA}
 				key={`VidA`}
-				className={'absolute w-full h-full inset-0 object-cover mix-blend-screen'}
+				className={'abs-full object-cover mix-blend-screen'}
 				muted={true}
 				// onLoadedMetadata={e => upVideoInfo( e.target, tabloA.current )}
 				onTimeUpdate={e => upVideoTime( e.target, tabloA.current )}
@@ -150,7 +150,7 @@ export default function PsyBG({vjLoops, className})
 			<video
 				ref={videoB}
 				key={`VidB`}
-				className={'absolute w-full h-full inset-0 object-cover mix-blend-screen opacity-0'}
+				className={'abs-full object-cover mix-blend-screen opacity-0'}
 				muted={true}
 				// onLoadedMetadata={e => upVideoInfo( e.target, tabloB.current )}
 				onTimeUpdate={e => upVideoTime( e.target, tabloB.current  )}

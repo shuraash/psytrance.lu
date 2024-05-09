@@ -45,12 +45,25 @@ export {arrRandomCycler}
 
 /*  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  */
 
+export const randomInt = (min = 0, max) => Math.floor(Math.random() * (max - min + 1) + min)
+
+export const toRect = (e) => Object.fromEntries(  ['Top', 'Left','Width','Height'].map( y => [y.toLowerCase(), e[y.toLowerCase()] ?  e[y.toLowerCase()] : e['offset'+y] + 'px'] ) )
+
+export const  reAss2Absolute = (d, s) =>
+{
+	d.style.width = s.width
+	d.style.height = s.height
+	d.style.top = s.top
+	d.style.left = s.left
+	d.style.position = 'absolute'
+}
+
 export const formatTS = (t) => {
 	const
 		h = Math.floor(t / 3600),
 		m = Math.floor((t - h * 3600) / 60),
 		s = Math.floor(t - (h * 3600 + m * 60))
-	return `${h ? h.toString().padStart(2, '0') + ':' : ''}${m ? m.toString().padStart(2, '0') : '00'}:${s.toString().padStart(2, '0')}`
+	return isNaN(t) ? '' : `${h ? h.toString().padStart(2, '0') + ':' : ''}${m ? m.toString().padStart(2, '0') : '00'}:${s.toString().padStart(2, '0')}`
 }
 
 // formatTSD = (s) =>

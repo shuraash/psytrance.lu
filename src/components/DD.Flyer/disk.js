@@ -1,148 +1,109 @@
-import Image from 'next/image'
 import {useEffect, useRef, useState} from "react";
-import {animate, AnimationControls} from "framer-motion";
+import {animate} from "framer-motion";
 
 
-export default function DDDisk({children, className})
+export default function DDDisk({children, className, playing=true})
 {
 
-	let looping, playing = true, lastDegPos = 0;
+	let
+		diskAC, genresAC;
 
 	const
 		diskRef = useRef(),
-		tttPics = [],
+
+		[isRun, setIsRun] = useState(true),
 
 
-		randomDegPos = (prev = lastDegPos, range = 30) =>
-		{
-			let x;
-			do{ x = Math.round(Math.random() * 360) } while (Math.abs(x - prev) <= range)
-			lastDegPos = x;
-			console.log(`lastDegPos ${lastDegPos}`)
-			return x + 'deg'
-		},
+		start = async () => {
 
-		makeAniSeq = () => tttPics.flatMap(pic => [
-			[
-				pic,
-				{
-					// scale: 1.1,
-					rotate: randomDegPos()
-				},
-				{
-					duration: 0,
-					delay: 1
-				}
-			],
-			[
-				pic,
-				{opacity: 1},
-				{
-					duration: 1,
-					delay: 1
-				}
-			],
-			[
-				pic,
-				{opacity: 0},
-				{
-					duration: 2.5,
-					delay: 0.5
-				}
-			]
-		]),
+			genresAC = animate([...diskRef.current.querySelectorAll('.ddpicg')].flatMap( (xx, i)=>
 
-		tttAnimator = async (stop) => {
+						[
+							[xx, {opacity: 0.75}, {duration: 1,ease: 'easeIn' , delay: 0}],
+							[xx, {opacity: 0}, {duration: 1.5 , ease: 'easeOut', delay: 1}],
+							[xx, {opacity: 0}, {duration: 0, ease: 'easeOut', delay: 2.5}],
+						]
 
-			async function loop()
-			{
-				console.log(`loop start`);
-
-				let aniSeq = makeAniSeq();
-				looping = true
-				const loopFn = async () =>
-				{
-					await animate(aniSeq)
-					if (playing) {
-						loop()
-					} else {
-						looping = false
-					}
-				}
-
-				// stop()
-				loopFn()
-			}
-
-
-			loop()
-		},
-
-		labTran = {duration: 3,  repeatDelay: 8, ease: 'linear', repeat: Infinity, repeatType: "loop"},
-
-		labAnim = async (d) => {
-
-			[
-				{scale: 1.1, rotate: Math.random() * 360 + 'deg', filter: `brightness(1)`},
-			]
+				),
+				{repeat: Infinity, repeatType: "loop", delay: 9, repeatDelay: 0}
+			)
 		}
-			// opacity: [0,0.5,1,0.5,0],
-			// opacity: [1,1,1,1,1],
-			// hueRotate: ['0deg','90deg','180deg','-90deg','0deg'],
-			// color: [0,0.5,1,0.5,0].map(c => clrRCycler.next().value)
 
 
 	useEffect(() =>
 	{
-		diskRef.current.querySelectorAll('img.dds').forEach(i=>tttPics.push(i));
-	 	tttAnimator()
-		// console.log(`suko `, window.animate = animate, window.pics = tttPics )
+
+
+	 start()
+
 	}, []);
 
 
-	return 	<div
+	return  <div className={'disco abs-full z-10 ' + className}>
+
+
+		<div className={'ohuevator-c abs-full z-0'}>
+
+			<div
 				ref={diskRef}
-				className={'absolute e-rotatoid rounded-full border border-neutral-500 w-full h-full inset-0 '}
+				className={'abs-full rounded-full  z-0' }
+
 				style={{
-					backgroundImage: 'url(/disk_1_tr80.png)',
+					// backgroundImage: 'url(/disk_1_tr80.png)',
+					backgroundImage: 'url(/disco_b.png)',
 					backgroundSize: 'cover',
 					backgroundPosition: 'center center',
 					backgroundBlendMode: 'overlay',
-					rotate: '0deg'
 				}}
-			// animate={{rotate: ['-360deg','0deg']}}
-			// transition={{duration: 7.77,  ease: 'linear', repeat: 1, repeatType: 'loop'}}
-		>
+			>
 
-			<Image
-				src="/tttPsy-club.gif"
-				className="p-2 dds origin-center object-contain absolute w-full h-full inset-0  opacity-0"
-				style={{scale: (1.1) }}
-				width={1960}
-				height={1960}
-				alt={'party Psychedelic'}
-			/>
-
-			<Image
-				src="/tttTek-club.gif"
-				className="p-2  dds  origin-center object-contain absolute w-full h-full inset-0 opacity-0 "
-				style={{scale: (1.1) }}
-				width={1960}
-				height={1960}
-				alt={'party Techno'}
-			/>
-
-			<Image
-				src="/tttTra-club.gif"
-				className="p-2  dds  origin-center object-contain absolute w-full h-full inset-0 opacity-0 "
-				style={{scale: (1.1) }}
-				width={1960}
-				height={1960}
-				alt={'party Trance'}
-			/>
+				<div className={'ddpicg opacity-0'}>
+					<img
+						src={'/greenPsyArc2.png'}
+						className={'ddpic opacity-1 abs-h-center top-[5%] w-[47%]  h-auto'}
+						alt={'party Psychedelic'}
+					/>
+					<img
+						src={'/greenPsyArc2.png'}
+						className={'ddpic opacity-1 abs-h-center bottom-[5%] w-[47%]  h-auto '}
+						style={{rotate: '180deg'}}
+						alt={'party Psychedelic'}
+					/>
+				</div>
 
 
-			{children}
+				<div className={'ddpicg opacity-0'}>
+					<img
+						src={'/greenTekArc2.png'}
+						className={'ddpic opacity-1 abs-h-center top-[2%] w-[47%] rotate-[1.0deg] h-auto'}
+						alt={'party Techno'}
+					/>
+					<img
+						src={'/greenTekArc2.png'}
+						className={'ddpic opacity-1 absolute translate-x-1/2 left-[50%] bottom-[2%] w-[47%] rotate-[-1.0deg] h-auto  '}
+						style={{rotate: '180deg'}}
+						alt={'party Techno'}
+					/>
+				</div>
+
+				<div className={'ddpicg opacity-0'}>
+					<img
+						src={'/greenTraArc2.png'}
+						className={'ddpic opacity-1 abs-h-center top-[2%] w-[47%] rotate-[1.0deg] h-auto'}
+						alt={'party Trance'}
+					/>
+					<img
+						src={'/greenTraArc2.png'}
+						className={'ddpic opacity-1 abs-h-center bottom-[2%] w-[47%] rotate-[-1.0deg] h-auto  '}
+						style={{rotate: '180deg'}}
+						alt={'party Trance'}
+					/>
+				</div>
+
+			</div>
+		</div>
+
+		{children}
 
 	</div>
 }

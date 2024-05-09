@@ -3,7 +3,7 @@
 import Link from "next/link";
 import DDChars, {ddColor, ddColors4Kinds} from "@/components/dd/dd.chars";
 import {useEffect} from "react";
-import DDDj from "@/components/dd/djays";
+import DjDrops, {bubblerPics} from "@/components/dd/djays";
 import {randoArrGen, randomIndex} from "@/util";
 
 export default function DDFLyear()
@@ -59,6 +59,9 @@ export default function DDFLyear()
 
 		<div className={'abs-center relative w-full max-w-full sm:max-w-screen-sm  h-auto aspect-square mx-auto '}>
 
+			{/*aka cache*/}
+			{bubblerPics.map(p => <img src={p} alt={p} className='fixed opacity-0 left-[-6666]'/>)}
+
 
 			<Link href={'/duckedelic'}
 			      className={'torigin-lt w-rotatoid abs-center block relative w-full max-w-full overflow-hidden sm:max-w-screen-sm  p-4 h-auto aspect-square mx-auto '}
@@ -88,7 +91,7 @@ export default function DDFLyear()
 				<img className="p-2  duke-v trance  object-contain  w-full  h-full  abs-center" src="/2tra.png"></img>
 			</Link>
 
-			<DDDj/>
+			<DjDrops/>
 
 		</div>
 
