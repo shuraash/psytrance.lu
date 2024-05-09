@@ -1,6 +1,6 @@
 import './globals.css?2'
-import PgTemplate from "@/components/pgTemplate";
-import PsyBG from "@/components/PsyBG/psyBG";
+import PgTemplate from "src/components/pgTemplate";
+import PsyBG from "src/components/PsyBG/psyBG";
 
 
 export const metadata = {

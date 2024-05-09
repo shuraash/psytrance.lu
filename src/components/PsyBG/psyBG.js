@@ -2,9 +2,9 @@
 
 import {useEffect, useRef} from "react";
 import {animate} from "framer-motion";
-import {arrRandomCycler, formatTS} from "@/util";
-import VJLoops from "@/components/PsyBG/vjLoops.json";
-import TeleBoxPortal, {useTeleBoxPortal} from "@/components/teleBoxPortal";
+import {arrRandomCycler, formatTS} from "src/util";
+import VJLoops from "src/components/PsyBG/vjLoops.json";
+import TeleBoxPortal, {useTeleBoxPortal} from "src/components/teleBoxPortal";
 
 const
 

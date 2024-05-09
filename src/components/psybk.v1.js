@@ -1,8 +1,8 @@
 "use client"
 
 import {createContext, useContext, useEffect, useRef, useState} from "react";
-import {shuffleArray} from "@/util";
-import {useTocucher} from "@/components/ctx.toucher";
+import {shuffleArray} from "src/util";
+import {useTocucher} from "src/components/ctx.toucher";
 
 const
 	vidoz = shuffleArray([

@@ -4,7 +4,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {LayoutRouterContext} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import {useContext, useRef} from "react";
 import {usePathname} from "next/navigation";
-import PsyBG from "@/components/PsyBG/psyBG";
+import PsyBG from "src/components/PsyBG/psyBG";
 
 
 // Prevents instant page opening

@@ -1,8 +1,8 @@
 "use client"
 
-import DDDisk from "@/components/DD.Flyer/disk";
+import DDDisk from "src/components/DD.Flyer/disk";
 import {useEffect, useRef} from "react";
-import DjDrops from "@/components/dd/djays";
+import DjDrops from "src/components/dd/djays";
 import Link from "next/link";
 import {twMerge} from "tailwind-merge";
 

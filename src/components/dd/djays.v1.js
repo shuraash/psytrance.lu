@@ -2,8 +2,8 @@
 
 import {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import {arrRandomCycler} from "@/util";
-import {psyColors} from "@/components/psyColors";
+import {arrRandomCycler} from "src/util";
+import {psyColors} from "src/components/psyColors";
 
 
 const

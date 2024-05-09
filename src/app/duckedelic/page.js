@@ -1,4 +1,4 @@
-import DjDrops from "@/components/dd/djays";
+import DjDrops from "src/components/dd/djays";
 import Link from "next/link";
 
 export default function About() {

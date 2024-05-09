@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link";
-import DDChars, {ddColor, ddColors4Kinds} from "@/components/dd/dd.chars";
+import DDChars, {ddColor, ddColors4Kinds} from "src/components/dd/dd.chars";
 import {useEffect} from "react";
-import DjDrops, {bubblerPics} from "@/components/dd/djays";
-import {randoArrGen, randomIndex} from "@/util";
+import DjDrops, {bubblerPics} from "src/components/dd/djays";
+import {randoArrGen, randomIndex} from "src/util";
 
 export default function DDFLyear()
 {

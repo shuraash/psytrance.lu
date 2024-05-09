@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 
-import DDDisk from "@/components/DD.Flyer/disk";
-import PsyText, {PsyTextCrest, PsyTextRow} from "@/components/psyText";
+import DDDisk from "src/components/DD.Flyer/disk";
+import PsyText, {PsyTextCrest, PsyTextRow} from "src/components/psyText";
 import {animate, motion, useDragControls} from "framer-motion";
-import DjDrops from "@/components/dd/djays";
+import DjDrops from "src/components/dd/djays";
 import {useEffect, useRef, useState} from "react";
-import {arrRandomCycler, reAss2Absolute, toRect} from "@/util";
-import {psyColors} from "@/components/psyColors";
+import {arrRandomCycler, reAss2Absolute, toRect} from "src/util";
+import {psyColors} from "src/components/psyColors";
 
 
 export default function DDFLyear({className})

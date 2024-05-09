@@ -2,7 +2,7 @@
 
 import {useEffect, useRef} from "react";
 import {animate} from "framer-motion";
-import {arrRandomCycler, formatTS} from "@/util";
+import {arrRandomCycler, formatTS} from "src/util";
 
 const
 

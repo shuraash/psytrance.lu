@@ -1,12 +1,12 @@
 "use client"
 
-import DDFLyear from "@/components/DD.Flyer/flyer";
+import DDFLyear from "src/components/DD.Flyer/flyer";
 
 
 import Link from "next/link";
 
 import {useEffect, useRef} from "react";
-import {PsycoTexto, PsycoTitlo} from "@/components/psyText";
+import {PsycoTexto, PsycoTitlo} from "src/components/psyText";
 
 // const DDFLyear = dynamic(() => import('../components/DD.Flyer/flyer'), {loading: () => <p> </p>,})
 
