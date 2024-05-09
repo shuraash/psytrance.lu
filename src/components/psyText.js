@@ -1,11 +1,10 @@
-
 import {twMerge} from "tailwind-merge";
-import {useEffect, useLayoutEffect, useRef, useState} from "react";
-import {arrRandomCycler, reAss2Absolute, toRect} from "@/util";
+import {useEffect, useRef, useState} from "react";
+import {arrRandomCycler} from "@/util";
 import {psyColors} from "@/components/psyColors";
 import {animate} from "framer-motion";
 
-	//
+//
 	// function PsyChar ({char, className})
 	// {
 	// 	return <span

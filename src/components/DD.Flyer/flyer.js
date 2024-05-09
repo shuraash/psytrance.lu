@@ -1,7 +1,6 @@
 "use client"
 
-import Link from "next/link";
-import PsyText, {DDCrest, PsycoRow, PsycoTitlo} from "@/components/psyText";
+import {DDCrest} from "@/components/psyText";
 import {animate} from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import {arrRandomCycler} from "@/util";

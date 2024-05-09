@@ -1,7 +1,4 @@
-
 "use client"
-
-import {animate, motion, useDragControls} from "framer-motion";
 
 import DDDisk from "@/components/DD.Flyer/disk";
 import {useEffect, useRef} from "react";

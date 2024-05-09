@@ -5,10 +5,7 @@ import DDFLyear from "@/components/DD.Flyer/flyer";
 
 import Link from "next/link";
 
-import {useEffect, useRef, useState} from "react";
-import {arrRandomCycler} from "@/util";
-import {psyColors} from "@/components/psyColors";
-import {twMerge} from "tailwind-merge";
+import {useEffect, useRef} from "react";
 import {PsycoTexto, PsycoTitlo} from "@/components/psyText";
 
 // const DDFLyear = dynamic(() => import('../components/DD.Flyer/flyer'), {loading: () => <p> </p>,})
@@ -19,7 +16,6 @@ export default function Home() {
    const
        ddRef = useRef(),
        iiRef = useRef(),
-
 
        morea = async () => {
 
@@ -36,16 +32,9 @@ export default function Home() {
 
     useEffect(() =>
     {
-    //    if(!lColors)
-      //      setlColors( genLColors() )
-        // else
-        //     psycoChars([...ddRef.current.querySelectorAll('.psy-char')])
-
         animate(ddRef.current, {opacity: 1}, {duration: 1, delay: 4})
         animate(iiRef.current, {opacity: 1}, {duration: 1, delay: 4})
-
         morea()
-
     }, []);
 
   return (
