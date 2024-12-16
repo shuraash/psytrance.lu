@@ -24,13 +24,19 @@ export default function RootLayout({ children }) {
       {/*    <link rel="preload" href="/bubbles/009.png" as="image" type="image/png" />*/}
       {/*</head>*/}
 
-      <body className={'relative w-screen h-dvh min-h-dvh overflow-x-hidden'}>
+      <body className={'relative w-screen h-svh min-h-svh overflow-x-hidden'}>
 
         <PsyBG className={'abs-full fixed '} onInfoUpdate={undefined} />
 
-      <main>
 
-          <PgTemplate>{children}</PgTemplate>
+      <PsyHeader/>
+
+      <main className={'relative w-full max-w-screen-lg mx-auto pt-14'}>
+
+          {/*<PgTemplate>{children}</PgTemplate>*/}
+
+
+          {children}
 
       </main>
 
@@ -65,4 +71,16 @@ export default function RootLayout({ children }) {
       </body>
     </html>
   )
+}
+
+
+function PsyHeader({}) {
+
+    return <header className={'w-fit mx-auto max-w-screen-lg p-2 grid grid-cols-[auto_auto] gap-x-4 items-center font-sans drop-shadow-[3px_3px_3px#fff8f888]'}>
+
+        <img src={'psytrance_lu.png'} className={`w-auto h-24 psy-logo-huer`}/>
+
+        <h1 className={'font-bold text-2xl text-lime-300 ohuevator-c'}>PSYTRANCE.LU</h1>
+
+    </header>
 }

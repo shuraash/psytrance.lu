@@ -44,7 +44,7 @@
     translate: -50% -50%;
   }
 
-  .abs-full{ @apply absolute w-full h-full inset-0 }
+  .abs-full{ @apply absolute inset-0  w-full h-full }
 }
 
 /*:root {*/
@@ -878,3 +878,12 @@ main{
 /*  animation-iteration-count: infinite, infinite;*/
 /*  animation-fill-mode: forwards, forwards;*/
 /*}*/
+
+.psy-logo-huer{
+  /*animation: w-huevator 6.33s ease-in-out infinite, w-rotatoid 7.7s linear infinite;*/
+  animation: rotateHUE360 7.7s linear infinite;
+}
+
+.ny-quarter{
+  animation: o-huevate-c 7.7s linear infinite;
+}
